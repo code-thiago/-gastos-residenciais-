@@ -18,6 +18,13 @@ export default function Home() {
         </Link>
         .
       </p>
+      <p>
+        Acesse a página de{' '}
+        <Link href="/summary" style={{ color: 'blue', textDecoration: 'underline' }}>
+          consulta de totais
+        </Link>
+        .
+      </p>
     </div>
   );
 }

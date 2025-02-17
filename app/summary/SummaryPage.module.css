@@ -1,0 +1,13 @@
+.container {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+.summary {
+  margin-top: 20px;
+}
+
+.summary p {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
