@@ -15,17 +15,17 @@ datasource db {
 }
 
 model Person {
-  id        Int      @id @default(autoincrement())
-  name      String
-  age       Int
+  id           Int           @id @default(autoincrement()) // ID gerado automaticamente
+  name         String
+  age          Int
   transactions Transaction[]
 }
 
 model Transaction {
-  id          Int      @id @default(autoincrement())
+  id          Int    @id @default(autoincrement()) // ID gerado automaticamente
   description String
   value       Float
   type        String
   personId    Int
-  person      Person   @relation(fields: [personId], references: [id], onDelete: Cascade)
+  person      Person @relation(fields: [personId], references: [id], onDelete: Cascade)
 }

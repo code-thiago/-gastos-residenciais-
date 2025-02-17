@@ -30,7 +30,7 @@ export async function POST(request: Request) {
   }
 
   const transaction = await prisma.transaction.create({
-    data: { description, value, type, personId },
+    data: { description, value, type, personId }, // O ID é gerado automaticamente
   });
   return NextResponse.json(transaction, { status: 201 });
 }

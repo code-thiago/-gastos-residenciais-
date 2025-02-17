@@ -170,8 +170,8 @@ const config = {
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma-client\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Person {\n  id           Int           @id @default(autoincrement())\n  name         String\n  age          Int\n  transactions Transaction[]\n}\n\nmodel Transaction {\n  id          Int    @id @default(autoincrement())\n  description String\n  value       Float\n  type        String\n  personId    Int\n  person      Person @relation(fields: [personId], references: [id], onDelete: Cascade)\n}\n",
-  "inlineSchemaHash": "6ab62e3993744c618de256d5d32312c84922a61e6850ed1f2d05084e9b40409e",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\n// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?\n// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"./generated/prisma-client\"\n}\n\ndatasource db {\n  provider = \"mysql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel Person {\n  id           Int           @id @default(autoincrement()) // ID gerado automaticamente\n  name         String\n  age          Int\n  transactions Transaction[]\n}\n\nmodel Transaction {\n  id          Int    @id @default(autoincrement()) // ID gerado automaticamente\n  description String\n  value       Float\n  type        String\n  personId    Int\n  person      Person @relation(fields: [personId], references: [id], onDelete: Cascade)\n}\n",
+  "inlineSchemaHash": "51dd55ded6fed7ead4801375b35b92a4050059520b5ed08104ea409535202c4e",
   "copyEngine": true
 }
 

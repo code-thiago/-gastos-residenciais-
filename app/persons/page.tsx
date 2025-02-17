@@ -57,7 +57,11 @@ export default function PersonsPage() {
       <ul className={styles.list}>
         {persons.map((person) => (
           <li key={person.id}>
-            {person.name} (Idade: {person.age})
+            <div>
+              <strong>ID: {person.id}</strong> {/* Exibe o ID */}
+              <p>Nome: {person.name}</p>
+              <p>Idade: {person.age}</p>
+            </div>
             <button onClick={() => handleDelete(person.id)}>Deletar</button>
           </li>
         ))}

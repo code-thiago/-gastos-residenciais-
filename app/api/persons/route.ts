@@ -11,7 +11,7 @@ export async function GET() {
 export async function POST(request: Request) {
   const { name, age } = await request.json();
   const person = await prisma.person.create({
-    data: { name, age },
+    data: { name, age }, // O ID é gerado automaticamente
   });
   return NextResponse.json(person, { status: 201 });
 }
