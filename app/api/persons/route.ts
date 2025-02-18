@@ -22,8 +22,11 @@ export async function DELETE(request: Request) {
   if (!id) {
     return NextResponse.json({ error: 'ID não fornecido' }, { status: 400 });
   }
+
+  // Deleta a pessoa e suas transações associadas (em cascata)
   await prisma.person.delete({
     where: { id: Number(id) },
   });
+
   return new NextResponse(null, { status: 204 });
 }

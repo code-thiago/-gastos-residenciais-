@@ -12,6 +12,7 @@ interface Transaction {
   person: {
     id: number;
     name: string;
+    age: number;
   };
 }
 
@@ -20,7 +21,7 @@ export default function TransactionsPage() {
   const [description, setDescription] = useState('');
   const [value, setValue] = useState('');
   const [type, setType] = useState('despesa');
-  const [personId, setPersonId] = useState<number | string>('');
+  const [personId, setPersonId] = useState('');
 
   // Busca as transações ao carregar a página
   useEffect(() => {
@@ -32,17 +33,6 @@ export default function TransactionsPage() {
     fetchTransactions();
   }, []);
 
-  // Função para deletar uma transação
-  async function handleDelete(id: number) {
-    const response = await fetch(`/api/transactions/${id}`, {
-      method: 'DELETE',
-    });
-    if (response.ok) {
-      // Atualiza a lista de transações após deletar
-      setTransactions(transactions.filter((transaction) => transaction.id !== id));
-    }
-  }
-
   // Função para cadastrar uma nova transação
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -51,9 +41,9 @@ export default function TransactionsPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         description,
-        value: Number(value),
+        value: parseFloat(value),
         type,
-        personId: Number(personId),
+        personId: parseInt(personId),
       }),
     });
     if (response.ok) {
@@ -63,6 +53,9 @@ export default function TransactionsPage() {
       setValue('');
       setType('despesa');
       setPersonId('');
+    } else {
+      const error = await response.json();
+      alert(error.error); // Exibe mensagem de erro
     }
   }
 
@@ -72,8 +65,15 @@ export default function TransactionsPage() {
       <ul className={styles.list}>
         {transactions.map((transaction) => (
           <li key={transaction.id}>
-            {transaction.description} - {transaction.value} ({transaction.type}) - Pessoa: {transaction.person.name}
-            <button onClick={() => handleDelete(transaction.id)}>Deletar</button>
+            <div>
+              <strong>{transaction.description}</strong>
+              <p>Valor: R$ {transaction.value.toFixed(2)}</p>
+              <p>Tipo: {transaction.type}</p>
+              <p>
+                Pessoa: {transaction.person?.name || 'N/A'} (Idade:{' '}
+                {transaction.person?.age || 'N/A'})
+              </p>
+            </div>
           </li>
         ))}
       </ul>
@@ -94,7 +94,11 @@ export default function TransactionsPage() {
           onChange={(e) => setValue(e.target.value)}
           required
         />
-        <select value={type} onChange={(e) => setType(e.target.value)} required>
+        <select
+          value={type}
+          onChange={(e) => setType(e.target.value)}
+          required
+        >
           <option value="despesa">Despesa</option>
           <option value="receita">Receita</option>
         </select>

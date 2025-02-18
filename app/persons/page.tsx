@@ -26,12 +26,14 @@ export default function PersonsPage() {
 
   // Função para deletar uma pessoa
   async function handleDelete(id: number) {
-    const response = await fetch(`/api/persons/${id}`, {
+    const response = await fetch(`/api/persons?id=${id}`, {
       method: 'DELETE',
     });
     if (response.ok) {
       // Atualiza a lista de pessoas após deletar
       setPersons(persons.filter((person) => person.id !== id));
+    } else {
+      alert('Erro ao deletar pessoa'); // Exibe mensagem de erro
     }
   }
 

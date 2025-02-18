@@ -15,14 +15,14 @@ datasource db {
 }
 
 model Person {
-  id           Int           @id @default(autoincrement()) // ID gerado automaticamente
+  id           Int           @id @default(autoincrement())
   name         String
   age          Int
-  transactions Transaction[]
+  transactions Transaction[] // Relacionamento com Transaction
 }
 
 model Transaction {
-  id          Int    @id @default(autoincrement()) // ID gerado automaticamente
+  id          Int    @id @default(autoincrement())
   description String
   value       Float
   type        String
