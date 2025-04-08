@@ -1,36 +1,67 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sistema de Controle de Gastos Residenciais
 
-## Getting Started
+Este projeto foi desenvolvido em **TypeScript** com **Prisma** e tem como objetivo implementar um sistema de controle de gastos residenciais. O sistema permite o cadastro de pessoas e transações, além de fornecer uma consulta de totais de receitas e despesas.
 
-First, run the development server:
+## Estrutura do Projeto
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+O projeto foi organizado da seguinte forma:
+├── .next
+├── app/
+│ ├── persons/ # Lógica relacionada ao cadastro de pessoas
+│ ├── transactions/ # Lógica relacionada ao cadastro de transações
+│ ├── summary/ # Lógica para consulta de totais
+│ └── api/ # Rotas da API
+│ ├── persons/ # Rotas relacionadas ao cadastro de pessoas
+│ ├── transactions/ # Rotas relacionadas ao cadastro de transações
+│ └── summary/ # Rotas para consulta de totais
+├── prisma/ # Configurações e migrações do Prisma
+├── .env # Variáveis de ambiente
+├── README.md # Este arquivo
+└── package.json # Dependências e scripts do projeto
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Detalhes da Estrutura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **`app/persons/`**: Contém a lógica de negócio para o cadastro de pessoas, incluindo criação, listagem e exclusão.
+- **`app/transactions/`**: Contém a lógica de negócio para o cadastro de transações, incluindo criação e listagem.
+- **`app/summary/`**: Contém a lógica para calcular e exibir os totais de receitas, despesas e saldos.
+- **`app/api/`**: Contém as rotas da API, organizadas em subpastas para cada funcionalidade (`persons`, `transactions`, `summary`).
+  - Cada subpasta dentro de `api/` possui um arquivo `Route.ts` que define as rotas específicas para aquela funcionalidade.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Funcionalidades Implementadas
 
-## Learn More
+### 1. Cadastro de Pessoas
 
-To learn more about Next.js, take a look at the following resources:
+- **Criação**: Adiciona uma nova pessoa ao sistema.
+- **Deleção**: Remove uma pessoa e todas as suas transações associadas.
+- **Listagem**: Exibe todas as pessoas cadastradas.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Cada pessoa possui os seguintes atributos:
+- **Identificador**: Número inteiro sequencial único gerado automaticamente.
+- **Nome**: Texto.
+- **Idade**: Número inteiro.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 2. Cadastro de Transações
 
-## Deploy on Vercel
+- **Criação**: Adiciona uma nova transação ao sistema.
+- **Listagem**: Exibe todas as transações cadastradas.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Cada transação possui os seguintes atributos:
+- **Identificador**: Número inteiro sequencial único gerado automaticamente.
+- **Descrição**: Texto.
+- **Valor**: Número decimal positivo.
+- **Tipo**: Despesa ou receita.
+- **Pessoa**: Identificador da pessoa associada à transação.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**Observação**: Caso a pessoa associada à transação seja menor de idade (menor de 18 anos), apenas despesas serão aceitas.
+
+### 3. Consulta de Totais
+
+- **Listagem de Pessoas**: Exibe o total de receitas, despesas e o saldo (receita - despesa) de cada pessoa.
+- **Total Geral**: Exibe o total geral de todas as pessoas, incluindo o total de receitas, total de despesas e o saldo líquido.
+
+## Como o Projeto Foi Desenvolvido
+
+- **TypeScript**: Utilizado para garantir tipagem estática e melhorar a manutenibilidade do código.
+- **Prisma**: Utilizado como ORM para gerenciar o banco de dados e simplificar operações de CRUD.
+- **Arquitetura Modular**: O projeto foi organizado em módulos separados para pessoas, transações e totais, seguindo uma estrutura limpa e escalável.
+- **Rotas Organizadas**: As rotas da API foram separadas em arquivos específicos (`Route.ts`) para cada funcionalidade, facilitando a manutenção e expansão do sistema.
